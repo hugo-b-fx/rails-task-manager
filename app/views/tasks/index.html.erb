@@ -1,0 +1,19 @@
+<h1>All Tasks</h1>
+
+<%= link_to "Create New Task", new_task_path %>
+
+<ul>
+  <% @tasks.each do |task| %>
+    <li>
+      <%= link_to task.title, task_path(task) %>
+      - <%= task.completed ? "yes" : "no" %>
+      - <%= link_to "Edit", edit_task_path(task) %>
+
+      <form action="<%= task_path(task) %>" method="post" style="display:inline;">
+        <input type="hidden" name="_method" value="delete">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+      </form>
+    </li>
+  <% end %>
+</ul>
